@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#081d38">
+<title>Trading & Savings — Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark">↗</div><div><b>TRADE</b><span>& SAVE</span></div></div>
+  <div class="account"><span class="dot"></span><div><small>ACCOUNT</small><b>USC • Personal</b></div></div>
+  <nav>
+    <button class="nav active" data-page="dashboard">▦ <span>Dashboard</span></button>
+    <button class="nav" data-page="trading">↗ <span>Daily Trading</span></button>
+    <button class="nav" data-page="cashflow">⇄ <span>Uang Masuk / Keluar</span></button>
+    <button class="nav" data-page="saving">♧ <span>Tabungan</span></button>
+    <button class="nav" data-page="monthly">▤ <span>Rekap Bulanan</span></button>
+  </nav>
+  <div class="side-bottom"><div class="mini-label">KURS</div><b>1 USD = Rp 16.100</b><span>100 USC = $1 USD</span></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div><div class="eyebrow">PERSONAL FINANCE • TRADING</div><h1 id="pageTitle">Dashboard</h1><p>Pelan tapi pasti. Pantau trading, cashflow, dan tabungan dalam satu tempat.</p></div>
+  <div class="top-actions"><button class="iconbtn" id="themeBtn" title="Tema">☾</button><button class="primary" onclick="openQuick()">＋ Tambah</button></div>
+</header>
+
+<section id="dashboard" class="page active">
+  <div class="welcome">
+    <div><span class="badge">● LIVE LOCAL DATA</span><h2>Selamat datang 👋</h2><p>Hari ini <b id="today"></b>. Semua angka di bawah dihitung otomatis dari data kamu.</p></div>
+    <div class="quote">“Small steps every day.”</div>
+  </div>
+
+  <div class="kpis">
+    <article class="kpi"><div class="kicon blue">💼</div><span>Modal Awal</span><strong id="kCapital">1,006.00</strong><small>USC</small><em id="kCapitalRp"></em></article>
+    <article class="kpi"><div class="kicon green">↗</div><span>Net Profit</span><strong id="kProfit">+5.70</strong><small>USC</small><em id="kProfitRp"></em></article>
+    <article class="kpi"><div class="kicon purple">🎯</div><span>Target Hari Ini</span><strong id="kTarget">50.30</strong><small>USC</small><em id="kTargetPct">0%</em></article>
+    <article class="kpi"><div class="kicon teal">🪙</div><span>Saldo Trading</span><strong id="kBalance">1,011.70</strong><small>USC</small><em id="kBalanceRp"></em></article>
+  </div>
+
+  <div class="main-grid">
+    <article class="panel chart-large"><div class="panel-head"><div><h3>Equity Curve</h3><span>Pergerakan saldo trading</span></div><span class="legend-dot">● USC</span></div><canvas id="equityChart"></canvas></article>
+    <article class="panel target-panel"><div class="panel-head"><div><h3>Target Harian</h3><span>Target 5% dari modal awal</span></div><b id="targetPercent">11.33%</b></div><div class="ring" id="ring"><div><strong id="ringText">11%</strong><span>tercapai</span></div></div><div class="target-row"><span>Profit hari ini</span><b id="todayProfit">5.70 USC</b></div><div class="target-row"><span>Masih kurang</span><b id="targetRemain">44.60 USC</b></div><div class="target-note">Target adalah acuan, bukan kewajiban untuk terus entry.</div></article>
+  </div>
+
+  <div class="main-grid lower-grid">
+    <article class="panel chart-large"><div class="panel-head"><div><h3>Profit / Loss</h3><span>Performa harian dalam USC</span></div></div><canvas id="plChart"></canvas></article>
+    <article class="panel"><div class="panel-head"><div><h3>Cashflow</h3><span>Uang masuk dan keluar</span></div><button class="textbtn" onclick="go('cashflow')">Lihat semua →</button></div><div id="cashSummary"></div></article>
+  </div>
+
+  <div class="three-grid">
+    <article class="panel"><div class="panel-head"><div><h3>Tabungan</h3><span>Progress menuju target</span></div><button class="textbtn" onclick="go('saving')">Detail →</button></div><div class="saving-number" id="saveAmount">0.00 USC</div><div class="progress"><i id="saveBar"></i></div><div class="between"><span id="savePct">0%</span><b id="saveTarget">Target 2,000 USC</b></div></article>
+    <article class="panel"><div class="panel-head"><div><h3>Hari Ini</h3><span>Ringkasan cepat</span></div></div><div class="quick-list"><div><span>Profit Trading</span><b id="qProfit">+5.70 USC</b></div><div><span>Deposit</span><b id="qDeposit">0.00 USC</b></div><div><span>Withdraw</span><b id="qWithdraw">0.00 USC</b></div><div><span>Tabungan</span><b id="qSaving">0.00 USC</b></div></div></article>
+    <article class="panel"><div class="panel-head"><div><h3>Catatan</h3><span>Disiplin trading</span></div></div><ul class="tips"><li>Jangan mengejar target dengan overtrade.</li><li>Catat profit dan loss setiap hari.</li><li>Evaluasi hasil di akhir minggu.</li></ul></article>
+  </div>
+</section>
+
+<section id="trading" class="page">
+  <div class="section-head"><div><div class="eyebrow">TRACKING</div><h2>Daily Trading</h2><p>Catat profit/loss. Saldo dan nilai rupiah dihitung otomatis.</p></div><button class="primary" onclick="addTrading()">＋ Tambah Trading</button></div>
+  <div class="panel"><div class="toolbar"><input id="tradeSearch" placeholder="Cari tanggal / catatan…" oninput="renderTrading()"><button class="secondary" onclick="exportCSV('trading')">⇩ Export CSV</button></div><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Profit/Loss</th><th>Saldo</th><th>Rupiah</th><th>Catatan</th><th></th></tr></thead><tbody id="tradeRows"></tbody></table></div></div>
+</section>
+
+<section id="cashflow" class="page">
+  <div class="section-head"><div><div class="eyebrow">CASHFLOW</div><h2>Uang Masuk / Keluar</h2><p>Deposit, withdrawal, dan transaksi lain.</p></div><button class="primary" onclick="addCash()">＋ Tambah Cashflow</button></div>
+  <div class="cash-cards"><div class="smallcard"><span>Total Masuk</span><b id="cashIn">0.00 USC</b></div><div class="smallcard"><span>Total Keluar</span><b id="cashOut">0.00 USC</b></div><div class="smallcard"><span>Net Cashflow</span><b id="cashNet">0.00 USC</b></div></div>
+  <div class="panel"><div class="toolbar"><button class="secondary" onclick="exportCSV('cash')">⇩ Export CSV</button></div><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Jenis</th><th>Nominal</th><th>Rupiah</th><th>Keterangan</th><th></th></tr></thead><tbody id="cashRows"></tbody></table></div></div>
+</section>
+
+<section id="saving" class="page">
+  <div class="section-head"><div><div class="eyebrow">SAVINGS</div><h2>Tabungan</h2><p>Pisahkan hasil trading untuk target tabungan.</p></div><button class="primary" onclick="addSaving()">＋ Tambah Tabungan</button></div>
+  <div class="saving-banner"><div><span>Saldo Tabungan</span><strong id="saveBig">0.00 USC</strong><small id="saveBigRp"></small></div><div class="save-goal"><span>Target 2,000 USC</span><div class="progress big"><i id="saveBigBar"></i></div><b id="saveBigPct">0%</b></div></div>
+  <div class="panel"><div class="toolbar"><button class="secondary" onclick="exportCSV('saving')">⇩ Export CSV</button></div><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Nominal</th><th>Rupiah</th><th>Keterangan</th><th></th></tr></thead><tbody id="savingRows"></tbody></table></div></div>
+</section>
+
+<section id="monthly" class="page">
+  <div class="section-head"><div><div class="eyebrow">ANALYTICS</div><h2>Rekap Bulanan</h2><p>Ringkasan performa berdasarkan catatan trading.</p></div></div>
+  <div class="panel"><div class="table-wrap"><table><thead><tr><th>Bulan</th><th>Modal Awal</th><th>Profit</th><th>Loss</th><th>Net Profit</th><th>Saldo Akhir</th></tr></thead><tbody id="monthRows"></tbody></table></div></div>
+</section>
+
+<footer>Trading & Savings Dashboard • Data tersimpan di perangkat ini • <button onclick="resetAll()">Reset data</button></footer>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><h3>Tambah Data</h3><button onclick="closeModal()">×</button></div><div class="choice-grid"><button onclick="closeModal();addTrading()">↗<b>Trading</b><small>Profit / Loss</small></button><button onclick="closeModal();addCash()">⇄<b>Cashflow</b><small>Deposit / Withdraw</small></button><button onclick="closeModal();addSaving()">♧<b>Tabungan</b><small>Simpan dana</small></button></div></div></div>
+<script src="app.js"></script>
+</body>
+</html>
