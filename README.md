@@ -1,6 +1,6 @@
-# Trading & Savings Dashboard V7
+# Trading & Savings Dashboard V9
 
-Dashboard web lokal untuk jurnal trading dan keuangan.
+Dashboard web untuk jurnal trading dan keuangan pribadi dengan tampilan ringkas dan berfokus pada dashboard utama.
 
 ## Mata uang
 - Trading: USC
@@ -8,18 +8,17 @@ Dashboard web lokal untuk jurnal trading dan keuangan.
 - Tabungan: IDR
 - Konversi tampilan: 100 USC = 1 USD, 1 USD = Rp16.100
 
-## Fitur
-- Dashboard visual bergaya finance/trading dashboard.
-- Sidebar: Dashboard, Trading Harian, Uang Masuk/Keluar, Tabungan, Rekap Bulanan.
-- Form input langsung pada masing-masing halaman.
-- Edit dan hapus data.
-- LocalStorage.
-- Export JSON.
+## Fitur V9
+- Dashboard utama dibuat lebih ringkas: KPI, dua grafik, rekap bulanan, dan ringkasan penting.
+- Trading Harian: input cepat, statistik singkat, pencarian, edit/hapus, dan riwayat yang lebih rapi.
+- Uang Masuk/Keluar: filter Semua/Masuk/Keluar, statistik cashflow, dan riwayat transaksi yang lebih jelas.
+- Tabungan: dapat membuat dan memilih beberapa jenis tabungan, masing-masing memiliki target sendiri.
+- Rekap Bulanan: pilih satu bulan dan lihat profit trading, uang masuk, uang keluar, net cashflow, tabungan, serta detail aktivitas pada bulan tersebut.
+- Semua input dan konfirmasi memakai modal/pesan custom dashboard, bukan popup browser bawaan.
+- LocalStorage untuk penyimpanan di browser.
+- Export JSON untuk backup data.
 - Grafik equity curve dan profit/loss harian.
-- Rekap bulanan.
-- Target harian 5%.
-- Target tabungan dalam IDR.
-- Responsif untuk desktop dan mobile.
+- Responsive untuk desktop dan mobile.
 
 ## GitHub Pages
 Upload `index.html`, `style.css`, `app.js`, dan `README.md` ke root repository lalu aktifkan GitHub Pages dari branch utama.

@@ -72,116 +72,91 @@
             <article class="kpi-card navy"><div class="kpi-head"><span class="kpi-icon">◎</span><div>SALDO SAAT INI</div></div><div class="kpi-big"><b id="kBalance">1,011.70</b><small>USC</small></div><div class="kpi-split"><div><span>USD</span><b id="kBalanceUsd">$ 10.12</b></div><div><span>Rupiah</span><b id="kBalanceRp">Rp 162.884</b></div></div></article>
           </div>
 
-          <div class="dashboard-grid">
-            <div class="primary-col">
-              <div class="chart-grid">
-                <article class="panel dark-chart"><div class="panel-title"><div><span class="panel-icon">⌁</span> EQUITY CURVE <small>(Saldo USC)</small></div><span class="chart-legend">● Saldo USC</span></div><div class="chart-box"><canvas id="equityChart"></canvas></div></article>
-                <article class="panel dark-chart"><div class="panel-title"><div><span class="panel-icon">▟</span> PROFIT / LOSS HARIAN <small>(USC)</small></div><div class="legend-pills"><span class="profit-dot">■ Profit</span><span class="loss-dot">■ Loss</span></div></div><div class="chart-box"><canvas id="plChart"></canvas></div></article>
-              </div>
-
-              <article class="panel monthly-panel"><div class="panel-title"><div><span class="panel-icon">▦</span> REKAP BULANAN</div><button class="panel-link" data-go="monthly">Lihat lengkap →</button></div><div class="table-scroll"><table class="data-table compact"><thead><tr><th>Bulan</th><th>Modal Awal<br/>(USC)</th><th>Deposit<br/>(IDR)</th><th>Withdraw<br/>(IDR)</th><th>Profit<br/>(USC)</th><th>Loss<br/>(USC)</th><th>Net Profit<br/>(USC)</th><th>Saldo Akhir<br/>(USC)</th></tr></thead><tbody id="dashboardMonthRows"></tbody></table></div></article>
-
-              <div class="bottom-grid">
-                <article class="panel"><div class="panel-title"><div><span class="panel-icon">▦</span> DAILY TRADING LOG</div><button class="panel-link" data-go="trading">Input →</button></div><div class="table-scroll"><table class="data-table compact"><thead><tr><th>No</th><th>Tanggal</th><th>Profit/Loss (USC)</th><th>Saldo Berjalan</th><th>Catatan</th></tr></thead><tbody id="dashTradeRows"></tbody></table></div></article>
-                <article class="panel"><div class="panel-title"><div><span class="panel-icon">⇄</span> UANG MASUK / KELUAR</div><button class="panel-link" data-go="cashflow">Input →</button></div><div class="table-scroll"><table class="data-table compact"><thead><tr><th>No</th><th>Tanggal</th><th>Jenis</th><th>Nominal (IDR)</th><th>Keterangan</th></tr></thead><tbody id="dashCashRows"></tbody></table></div></article>
-                <article class="panel"><div class="panel-title"><div><span class="panel-icon">♧</span> TABUNGAN</div><button class="panel-link" data-go="saving">Input →</button></div><div class="table-scroll"><table class="data-table compact"><thead><tr><th>No</th><th>Tanggal</th><th>Nominal (IDR)</th><th>Keterangan</th></tr></thead><tbody id="dashSavingRows"></tbody></table></div></article>
-              </div>
+          <div class="dashboard-grid dashboard-clean">
+            <div class="chart-grid">
+              <article class="panel dark-chart"><div class="panel-title"><div><span class="panel-icon">⌁</span> EQUITY CURVE <small>(Saldo USC)</small></div><span class="chart-legend">● Saldo USC</span></div><div class="chart-box"><canvas id="equityChart"></canvas></div></article>
+              <article class="panel dark-chart"><div class="panel-title"><div><span class="panel-icon">▟</span> PROFIT / LOSS HARIAN <small>(USC)</small></div><div class="legend-pills"><span class="profit-dot">■ Profit</span><span class="loss-dot">■ Loss</span></div></div><div class="chart-box"><canvas id="plChart"></canvas></div></article>
             </div>
 
-            <aside class="right-col">
-              <article class="panel conversion"><div class="side-panel-title"><span>♙</span><div><b>KONVERSI USC → IDR</b><small>1 USD = 16.100 IDR &nbsp; | &nbsp; 100 USC = $1 USD</small></div></div><table><tbody><tr><th>Item</th><th>USC</th><th>USD</th><th>Rupiah</th></tr><tr><td>Modal Awal</td><td id="convCapital">1,006.00</td><td id="convCapitalUsd">10.06</td><td id="convCapitalRp">Rp 161.966</td></tr><tr><td>Profit Hari Ini</td><td id="convToday">5.70</td><td id="convTodayUsd">0.06</td><td id="convTodayRp">Rp 918</td></tr><tr><td>Total Profit</td><td id="convProfit">5.70</td><td id="convProfitUsd">0.06</td><td id="convProfitRp">Rp 918</td></tr><tr><td>Saldo Saat Ini</td><td id="convBalance">1,011.70</td><td id="convBalanceUsd">10.12</td><td id="convBalanceRp">Rp 162.884</td></tr></tbody></table></article>
+            <article class="panel monthly-panel"><div class="panel-title"><div><span class="panel-icon">▦</span> REKAP BULANAN</div><button class="panel-link" data-go="monthly">Lihat detail →</button></div><div class="table-scroll"><table class="data-table compact"><thead><tr><th>Bulan</th><th>Modal Awal<br/>(USC)</th><th>Uang Masuk<br/>(IDR)</th><th>Uang Keluar<br/>(IDR)</th><th>Profit<br/>(USC)</th><th>Loss<br/>(USC)</th><th>Net Profit<br/>(USC)</th><th>Saldo Akhir<br/>(USC)</th></tr></thead><tbody id="dashboardMonthRows"></tbody></table></div></article>
 
-              <article class="panel progress-panel"><div class="side-panel-title"><span>◎</span><div><b>TARGET & PROGRES</b><small>Target harian dan estimasi bulanan</small></div></div><div class="side-metric"><span>Target Harian</span><strong id="sideTarget">50.30 USC</strong><div class="ring-line"><div class="progress-large"><i id="sideTargetBar"></i></div><b id="sideTargetPct">11.33%</b></div></div><div class="side-metric"><span>Target Bulanan (estimasi)</span><strong id="sideMonthly">1,509.00 USC</strong><div class="ring-line"><div class="progress-large"><i id="sideMonthlyBar"></i></div><b id="sideMonthlyPct">0.38%</b></div></div></article>
+            <div class="dashboard-summary-grid">
+              <article class="panel compact-summary"><div class="side-panel-title"><span>◎</span><div><b>TARGET & PROGRES</b><small>Performa target trading</small></div></div><div class="side-metric"><span>Target Harian</span><strong id="sideTarget">50.30 USC</strong><div class="ring-line"><div class="progress-large"><i id="sideTargetBar"></i></div><b id="sideTargetPct">11.33%</b></div></div><div class="side-metric"><span>Target Bulanan (estimasi)</span><strong id="sideMonthly">1,509.00 USC</strong><div class="ring-line"><div class="progress-large"><i id="sideMonthlyBar"></i></div><b id="sideMonthlyPct">0.38%</b></div></div></article>
 
-              <article class="panel savings-summary"><div class="side-panel-title"><span>♙</span><div><b>REKAP TABUNGAN</b><small>Disimpan dalam Rupiah</small></div></div><div class="save-summary-top"><div><span>Saldo Tabungan</span><strong id="sideSaving">Rp 0</strong></div><div><span>Target Tabungan</span><strong id="sideSavingTarget">Rp 322.000</strong></div></div><div class="progress-large"><i id="sideSavingBar"></i></div><div class="side-percent" id="sideSavingPct">0.0%</div></article>
+              <article class="panel compact-summary conversion"><div class="side-panel-title"><span>♙</span><div><b>KONVERSI USC → IDR</b><small>100 USC = $1 · 1 USD = Rp16.100</small></div></div><table><tbody><tr><th>Item</th><th>USC</th><th>Rupiah</th></tr><tr><td>Modal Awal</td><td id="convCapital">1,006.00</td><td id="convCapitalRp">Rp 161.966</td></tr><tr><td>Profit Hari Ini</td><td id="convToday">5.70</td><td id="convTodayRp">Rp 918</td></tr><tr><td>Saldo Saat Ini</td><td id="convBalance">1,011.70</td><td id="convBalanceRp">Rp 162.884</td></tr></tbody></table></article>
 
-              <article class="panel summary-panel"><div class="side-panel-title"><span>🐖</span><div><b>RINGKASAN HARI INI</b><small>Cashflow & trading</small></div></div><div class="summary-row"><span>↗ Profit Trading</span><b id="qProfit">5.70 USC</b></div><div class="summary-row"><span>▣ Uang Masuk</span><b id="qDeposit">Rp 0</b></div><div class="summary-row"><span>↙ Uang Keluar</span><b id="qWithdraw">Rp 0</b></div><div class="summary-row strong"><span>✦ Tabungan</span><b id="qSaving">Rp 0</b></div></article>
+              <article class="panel compact-summary savings-summary"><div class="side-panel-title"><span>♧</span><div><b>TABUNGAN</b><small>Total seluruh tabungan</small></div></div><div class="save-summary-top"><div><span>Saldo</span><strong id="sideSaving">Rp 0</strong></div><div><span>Target</span><strong id="sideSavingTarget">Rp 322.000</strong></div></div><div class="progress-large"><i id="sideSavingBar"></i></div><div class="side-percent" id="sideSavingPct">0.0%</div></article>
 
-              <article class="panel tips-panel"><div class="side-panel-title"><span>♧</span><div><b>TIPS HARI INI</b><small>Pengingat sederhana</small></div></div><ul><li>Patuhi rencana trading.</li><li>Jangan overtrade.</li><li>Kelola emosi dengan baik.</li><li>Catat semua transaksi.</li><li>Evaluasi di akhir minggu.</li></ul><div class="good-luck">Good Luck! ☺</div></article>
-            </aside>
+              <article class="panel compact-summary summary-panel"><div class="side-panel-title"><span>▣</span><div><b>BULAN BERJALAN</b><small>Ringkasan dana & profit</small></div></div><div class="summary-row"><span>Profit Trading</span><b id="qProfit">5.70 USC</b></div><div class="summary-row"><span>Uang Masuk</span><b id="qDeposit">Rp 0</b></div><div class="summary-row"><span>Uang Keluar</span><b id="qWithdraw">Rp 0</b></div><div class="summary-row strong"><span>Tabungan</span><b id="qSaving">Rp 0</b></div></article>
+            </div>
           </div>
         </section>
 
         <!-- TRADING PAGE -->
         <section class="page" id="trading">
-          <div class="input-layout">
-            <article class="form-panel trading-form-panel">
-              <div class="form-head"><div><span class="eyebrow">INPUT HARIAN</span><h3 id="tradeFormTitle">Tambah Trading Harian</h3><p>Trading tetap menggunakan <b>USC</b>. Profit positif, loss masukkan angka negatif.</p></div><span class="unit-pill">USC</span></div>
-              <form id="tradeForm" class="entry-form">
-                <input type="hidden" id="tradeEditIndex" value="" />
-                <label>Tanggal<input type="date" id="tradeDate" required /></label>
-                <label>Profit / Loss (USC)<input type="number" id="tradeProfit" step="0.01" placeholder="Contoh: 5.70 atau -3.20" required /></label>
-                <label>Catatan<textarea id="tradeNote" rows="3" placeholder="Contoh: XAUUSDc BUY, target tercapai"></textarea></label>
-                <div class="form-actions"><button class="btn primary" type="submit">💾 Simpan Data</button><button class="btn secondary" type="button" id="tradeCancel">Batal / Reset</button></div>
-              </form>
-              <div class="mini-stats"><div><span>Total Profit</span><b id="tradePageProfit">0 USC</b></div><div><span>Hari Positif</span><b id="tradeWinDays">0</b></div><div><span>Hari Negatif</span><b id="tradeLossDays">0</b></div></div>
-            </article>
-            <article class="form-panel info-panel"><div class="form-head"><div><span class="eyebrow">ATURAN</span><h3>Trading Harian</h3></div></div><div class="rule-card"><span>01</span><div><b>Target</b><p>Target harian otomatis dihitung 5% dari modal awal.</p></div></div><div class="rule-card"><span>02</span><div><b>Saldo</b><p>Saldo berjalan = modal awal + akumulasi profit/loss.</p></div></div><div class="rule-card"><span>03</span><div><b>Catatan</b><p>Catat konteks singkat agar mudah dievaluasi kembali.</p></div></div></article>
-          </div>
-          <article class="panel page-table-panel"><div class="panel-title"><div><span class="panel-icon">▦</span> RIWAYAT TRADING</div><div class="table-actions"><input id="tradeSearch" class="search-input" placeholder="Cari tanggal / catatan..." /><button class="btn small" id="tradeNewTop">＋ Tambah</button></div></div><div class="table-scroll"><table class="data-table"><thead><tr><th>No</th><th>Tanggal</th><th>Profit/Loss (USC)</th><th>Saldo Berjalan</th><th>Nilai IDR</th><th>Catatan</th><th>Aksi</th></tr></thead><tbody id="tradeRows"></tbody></table></div></article>
+          <article class="form-panel page-form-wide trading-form-panel">
+            <div class="form-head"><div><span class="eyebrow">INPUT HARIAN</span><h3 id="tradeFormTitle">Tambah Trading Harian</h3><p>Catat hasil trading dalam USC. Profit positif, loss masukkan angka negatif.</p></div><span class="unit-pill">USC</span></div>
+            <form id="tradeForm" class="entry-form compact-entry-form">
+              <input type="hidden" id="tradeEditIndex" value="" />
+              <label>Tanggal<input type="date" id="tradeDate" required /></label>
+              <label>Profit / Loss (USC)<input type="number" id="tradeProfit" step="0.01" placeholder="5.70 atau -3.20" required /></label>
+              <label>Catatan<textarea id="tradeNote" rows="2" placeholder="Contoh: XAUUSDc BUY · target tercapai"></textarea></label>
+              <div class="form-actions"><button class="btn primary" type="submit">💾 Simpan</button><button class="btn secondary" type="button" id="tradeCancel">Reset</button></div>
+            </form>
+          </article>
+          <div class="page-stat-grid trade-stat-grid"><article><span>Total Profit</span><b id="tradePageProfit">0 USC</b></article><article><span>Saldo Saat Ini</span><b id="tradeBalanceNow">0 USC</b></article><article><span>Hari Positif</span><b id="tradeWinDays">0</b></article><article><span>Hari Negatif</span><b id="tradeLossDays">0</b></article></div>
+          <article class="panel page-table-panel"><div class="panel-title"><div><span class="panel-icon">▦</span> RIWAYAT TRADING</div><div class="table-actions"><input id="tradeSearch" class="search-input" placeholder="Cari tanggal / catatan..." /><button class="btn small" id="tradeNewTop">＋ Tambah</button></div></div><div class="table-scroll"><table class="data-table history-table"><thead><tr><th>No</th><th>Tanggal</th><th>Profit/Loss</th><th>Saldo Berjalan</th><th>Nilai IDR</th><th>Catatan</th><th>Aksi</th></tr></thead><tbody id="tradeRows"></tbody></table></div></article>
         </section>
 
         <!-- CASHFLOW PAGE -->
         <section class="page" id="cashflow">
-          <div class="input-layout">
-            <article class="form-panel cash-form-panel"><div class="form-head"><div><span class="eyebrow">INPUT CASHFLOW</span><h3 id="cashFormTitle">Tambah Uang Masuk / Keluar</h3><p>Nominal cashflow menggunakan <b>Rupiah (IDR)</b>, terpisah dari profit trading USC.</p></div><span class="unit-pill idr">IDR</span></div><form id="cashForm" class="entry-form"><input type="hidden" id="cashEditIndex" value=""/><label>Tanggal<input type="date" id="cashDate" required /></label><label>Jenis<select id="cashType"><option>Deposit</option><option>Withdraw</option><option>Masuk</option><option>Keluar</option></select></label><label>Nominal (IDR)<input type="number" id="cashAmount" min="0" step="1000" placeholder="Contoh: 500000" required /></label><label>Keterangan<textarea id="cashNote" rows="3" placeholder="Contoh: Tambah modal / kebutuhan pribadi"></textarea></label><div class="form-actions"><button class="btn primary" type="submit">💾 Simpan Data</button><button class="btn secondary" type="button" id="cashCancel">Batal / Reset</button></div></form><div class="mini-stats"><div><span>Total Masuk</span><b id="cashPageIn">Rp 0</b></div><div><span>Total Keluar</span><b id="cashPageOut">Rp 0</b></div><div><span>Net Cashflow</span><b id="cashPageNet">Rp 0</b></div></div></article>
-            <article class="form-panel info-panel"><div class="form-head"><div><span class="eyebrow">CATATAN</span><h3>Pemisahan Mata Uang</h3></div></div><div class="currency-box blue-box"><b>Trading</b><strong>USC</strong><span>Profit / loss trading hanya dicatat di Trading Harian.</span></div><div class="currency-box green-box"><b>Cashflow</b><strong>IDR</strong><span>Deposit, withdraw, pemasukan, dan pengeluaran dicatat dalam Rupiah.</span></div><div class="currency-box purple-box"><b>Tabungan</b><strong>IDR</strong><span>Saldo tabungan tidak mengurangi saldo trading otomatis.</span></div></article>
-          </div>
-          <article class="panel page-table-panel"><div class="panel-title"><div><span class="panel-icon">⇄</span> RIWAYAT UANG MASUK / KELUAR</div><div class="table-actions"><input id="cashSearch" class="search-input" placeholder="Cari keterangan..."/><button class="btn small" id="cashNewTop">＋ Tambah</button></div></div><div class="table-scroll"><table class="data-table"><thead><tr><th>No</th><th>Tanggal</th><th>Jenis</th><th>Nominal (IDR)</th><th>Keterangan</th><th>Aksi</th></tr></thead><tbody id="cashRows"></tbody></table></div></article>
+          <article class="form-panel page-form-wide cash-form-panel">
+            <div class="form-head"><div><span class="eyebrow">INPUT CASHFLOW</span><h3 id="cashFormTitle">Tambah Uang Masuk / Keluar</h3><p>Gunakan Rupiah (IDR) untuk semua uang masuk dan keluar.</p></div><span class="unit-pill idr">IDR</span></div>
+            <form id="cashForm" class="entry-form compact-entry-form">
+              <input type="hidden" id="cashEditIndex" value="" />
+              <label>Tanggal<input type="date" id="cashDate" required /></label>
+              <label>Jenis<select id="cashType"><option>Deposit</option><option>Withdraw</option><option>Masuk</option><option>Keluar</option></select></label>
+              <label>Nominal (IDR)<input type="number" id="cashAmount" min="0" step="1000" placeholder="500000" required /></label>
+              <label>Keterangan<textarea id="cashNote" rows="2" placeholder="Contoh: tambah modal / kebutuhan pribadi"></textarea></label>
+              <div class="form-actions"><button class="btn primary" type="submit">💾 Simpan</button><button class="btn secondary" type="button" id="cashCancel">Reset</button></div>
+            </form>
+          </article>
+          <div class="page-stat-grid"><article><span>Total Masuk</span><b id="cashPageIn">Rp 0</b></article><article><span>Total Keluar</span><b id="cashPageOut">Rp 0</b></article><article><span>Net Cashflow</span><b id="cashPageNet">Rp 0</b></article></div>
+          <article class="panel page-table-panel"><div class="panel-title"><div><span class="panel-icon">⇄</span> RIWAYAT UANG MASUK / KELUAR</div><div class="table-actions"><div class="filter-pills"><button type="button" class="filter-pill active" data-cash-filter="all">Semua</button><button type="button" class="filter-pill" data-cash-filter="in">Masuk</button><button type="button" class="filter-pill" data-cash-filter="out">Keluar</button></div><input id="cashSearch" class="search-input" placeholder="Cari transaksi..."/><button class="btn small" id="cashNewTop">＋ Tambah</button></div></div><div class="table-scroll"><table class="data-table history-table"><thead><tr><th>No</th><th>Tanggal</th><th>Jenis</th><th>Nominal</th><th>Keterangan</th><th>Aksi</th></tr></thead><tbody id="cashRows"></tbody></table></div></article>
         </section>
 
         <!-- SAVING PAGE -->
         <section class="page" id="saving">
-          <div class="input-layout">
-            <article class="form-panel saving-form-panel"><div class="form-head"><div><span class="eyebrow">INPUT TABUNGAN</span><h3 id="savingFormTitle">Tambah Tabungan</h3><p>Semua tabungan menggunakan <b>Rupiah (IDR)</b>.</p></div><span class="unit-pill idr">IDR</span></div><form id="savingForm" class="entry-form"><input type="hidden" id="savingEditIndex" value=""/><label>Tanggal<input type="date" id="savingDate" required /></label><label>Nominal (IDR)<input type="number" id="savingAmount" min="0" step="1000" placeholder="Contoh: 200000" required /></label><label>Keterangan<textarea id="savingNote" rows="3" placeholder="Contoh: Tabungan trading"></textarea></label><div class="form-actions"><button class="btn primary" type="submit">💾 Simpan Data</button><button class="btn secondary" type="button" id="savingCancel">Batal / Reset</button></div></form><div class="saving-goal-editor"><label>Target Tabungan (IDR)<input type="number" id="savingTargetInput" min="0" step="1000"/><button class="btn small" id="savingTargetBtn">Simpan Target</button></label></div></article>
-            <article class="form-panel info-panel"><div class="goal-card"><span class="goal-label">Progress Saat Ini</span><strong id="savingPageBalance">Rp 0</strong><span id="savingPageTarget">dari target Rp 322.000</span><div class="goal-bar"><i id="savingPageBar"></i></div><b id="savingPagePct">0%</b></div><div class="rule-card"><span>01</span><div><b>Konsisten</b><p>Lebih penting mencatat setiap setoran daripada mengejar nominal besar sekali waktu.</p></div></div><div class="rule-card"><span>02</span><div><b>Target</b><p>Target dapat diubah kapan saja dari panel input tabungan.</p></div></div></article>
-          </div>
-          <article class="panel page-table-panel"><div class="panel-title"><div><span class="panel-icon">♧</span> RIWAYAT TABUNGAN</div><div class="table-actions"><input id="savingSearch" class="search-input" placeholder="Cari keterangan..."/><button class="btn small" id="savingNewTop">＋ Tambah</button></div></div><div class="table-scroll"><table class="data-table"><thead><tr><th>No</th><th>Tanggal</th><th>Nominal (IDR)</th><th>Keterangan</th><th>Aksi</th></tr></thead><tbody id="savingRows"></tbody></table></div></article>
+          <article class="form-panel page-form-wide saving-form-panel">
+            <div class="form-head"><div><span class="eyebrow">INPUT TABUNGAN</span><h3 id="savingFormTitle">Tambah Tabungan</h3><p>Pilih jenis tabungan lalu masukkan nominal dalam Rupiah.</p></div><span class="unit-pill idr">IDR</span></div>
+            <form id="savingForm" class="entry-form compact-entry-form">
+              <input type="hidden" id="savingEditIndex" value="" />
+              <label>Jenis Tabungan<select id="savingBucket"></select></label>
+              <label>Tanggal<input type="date" id="savingDate" required /></label>
+              <label>Nominal (IDR)<input type="number" id="savingAmount" min="0" step="1000" placeholder="200000" required /></label>
+              <label>Keterangan<textarea id="savingNote" rows="2" placeholder="Contoh: setoran rutin"></textarea></label>
+              <div class="form-actions"><button class="btn primary" type="submit">💾 Simpan</button><button class="btn secondary" type="button" id="savingCancel">Reset</button></div>
+            </form>
+            <div class="saving-bucket-tools">
+              <div id="savingBucketTabs" class="saving-bucket-tabs"></div>
+              <div class="bucket-create"><input id="savingBucketName" placeholder="Nama tabungan baru..." maxlength="28"/><button class="btn small" type="button" id="savingBucketAdd">＋ Tambah Tabungan</button></div>
+            </div>
+          </article>
+          <div class="page-stat-grid saving-stat-grid"><article><span>Saldo Tabungan</span><b id="savingPageBalance">Rp 0</b></article><article><span>Target Tabungan</span><b id="savingPageTarget">Rp 0</b></article><article><span>Progress</span><b id="savingPagePct">0%</b></article></div>
+          <article class="panel saving-goal-panel"><div class="goal-inline"><div><span class="eyebrow">TARGET TABUNGAN TERPILIH</span><strong id="savingSelectedLabel">Tabungan Utama</strong><small>Ubah target untuk tabungan yang sedang dipilih.</small></div><div class="goal-inline-control"><input type="number" id="savingTargetInput" min="0" step="1000"/><button class="btn small" id="savingTargetBtn">Simpan Target</button></div></div><div class="goal-bar"><i id="savingPageBar"></i></div></article>
+          <article class="panel page-table-panel"><div class="panel-title"><div><span class="panel-icon">♧</span> RIWAYAT TABUNGAN</div><div class="table-actions"><input id="savingSearch" class="search-input" placeholder="Cari nama / keterangan..."/><button class="btn small" id="savingNewTop">＋ Tambah</button></div></div><div class="table-scroll"><table class="data-table history-table"><thead><tr><th>No</th><th>Tanggal</th><th>Tabungan</th><th>Nominal</th><th>Keterangan</th><th>Aksi</th></tr></thead><tbody id="savingRows"></tbody></table></div></article>
         </section>
 
         <!-- MONTHLY PAGE -->
         <section class="page" id="monthly">
-          <div class="monthly-kpis"><article><span>Net Profit</span><b id="monthlyNet">0 USC</b></article><article><span>Total Trading</span><b id="monthlyTrades">0</b></article><article><span>Cashflow Net</span><b id="monthlyCashNet">Rp 0</b></article><article><span>Tabungan</span><b id="monthlySaving">Rp 0</b></article></div>
-          <article class="panel page-table-panel"><div class="panel-title"><div><span class="panel-icon">▦</span> REKAP BULANAN</div><span class="panel-muted">Trading dalam USC · cashflow & tabungan dalam IDR</span></div><div class="table-scroll"><table class="data-table"><thead><tr><th>Bulan</th><th>Modal Awal (USC)</th><th>Profit (USC)</th><th>Loss (USC)</th><th>Net Profit (USC)</th><th>Saldo Akhir (USC)</th><th>Uang Masuk (IDR)</th><th>Uang Keluar (IDR)</th><th>Tabungan (IDR)</th></tr></thead><tbody id="monthRows"></tbody></table></div></article>
-          <div class="monthly-grid"><article class="panel"><div class="panel-title"><div><span class="panel-icon">⌁</span> Ringkasan Disiplin</div></div><div class="discipline-list"><div><span>Hari profit</span><b id="monthWinDays">0</b></div><div><span>Hari loss</span><b id="monthLossDays">0</b></div><div><span>Target 5% tercapai</span><b id="monthTargetDays">0</b></div><div><span>Hari tercatat</span><b id="monthLoggedDays">0</b></div></div></article><article class="panel"><div class="panel-title"><div><span class="panel-icon">✦</span> Konversi</div></div><div class="conversion-large"><div><span>1 USC</span><b>≈ Rp 161</b></div><div><span>100 USC</span><b>= $1 USD</b></div><div><span>1 USD</span><b>= Rp 16.100</b></div></div></article></div>
+          <div class="monthly-selector"><div><span class="eyebrow">PILIH PERIODE</span><h3>Rekap Bulanan</h3><p id="monthlySelectedLabel">Ringkasan bulan terpilih.</p></div><label>Bulan<input type="month" id="monthlyPicker" /></label></div>
+          <div class="monthly-kpis"><article><span>Profit Trading</span><b id="monthlyNet">0 USC</b></article><article><span>Uang Masuk</span><b id="monthlyCashIn">Rp 0</b></article><article><span>Uang Keluar</span><b id="monthlyCashOut">Rp 0</b></article><article><span>Net Cashflow</span><b id="monthlyCashNet">Rp 0</b></article><article><span>Tabungan</span><b id="monthlySaving">Rp 0</b></article></div>
+          <article class="panel page-table-panel"><div class="panel-title"><div><span class="panel-icon">▦</span> DETAIL BULAN TERPILIH</div><span class="panel-muted">Profit tetap USC · uang masuk/keluar & tabungan tetap IDR</span></div><div class="table-scroll"><table class="data-table history-table"><thead><tr><th>Tanggal</th><th>Aktivitas</th><th>Profit (USC)</th><th>Uang Masuk</th><th>Uang Keluar</th><th>Tabungan</th><th>Keterangan</th></tr></thead><tbody id="monthRows"></tbody></table></div></article>
+          <div class="monthly-grid"><article class="panel"><div class="panel-title"><div><span class="panel-icon">⌁</span> Ringkasan Trading</div></div><div class="discipline-list"><div><span>Saldo awal bulan</span><b id="monthOpenBalance">0 USC</b></div><div><span>Saldo akhir bulan</span><b id="monthCloseBalance">0 USC</b></div><div><span>Hari profit</span><b id="monthWinDays">0</b></div><div><span>Hari loss</span><b id="monthLossDays">0</b></div></div></article><article class="panel"><div class="panel-title"><div><span class="panel-icon">✦</span> Aktivitas</div></div><div class="conversion-large"><div><span>Total aktivitas</span><b id="monthActivityCount">0</b></div><div><span>Hari tercatat</span><b id="monthLoggedDays">0</b></div><div><span>Target 5% tercapai</span><b id="monthTargetDays">0</b></div></div></article></div>
         </section>
 
-        <!-- OPTIONAL HELP / DOCUMENTATION: intentionally kept in the main HTML so this dashboard remains a self-contained reference. -->
-        <section class="help-library" aria-label="Pusat panduan dashboard">
-          <details><summary>Pusat Panduan: Cara Menggunakan Dashboard</summary><div class="help-grid">
-            <article><h4>Dashboard</h4><p>Gunakan halaman Dashboard sebagai layar utama. Kartu atas menunjukkan modal awal, total profit, target harian, dan saldo saat ini. Grafik membantu melihat perubahan saldo serta profit/loss harian. Panel kanan memberi ringkasan konversi USC ke Rupiah, target, tabungan, dan cashflow.</p></article>
-            <article><h4>Trading Harian</h4><p>Masukkan satu catatan per hari atau sebanyak yang dibutuhkan. Profit positif ditulis seperti 5.70, sedangkan loss ditulis seperti -3.20. Saldo berjalan dihitung otomatis dari modal awal dan akumulasi seluruh transaksi trading.</p></article>
-            <article><h4>Uang Masuk / Keluar</h4><p>Masukkan nominal dalam Rupiah. Jenis dapat berupa Deposit, Withdraw, Masuk, atau Keluar. Data ini tidak mengubah saldo trading otomatis; halaman ini berfungsi sebagai jurnal cashflow sehingga uang pribadi dan performa trading tetap mudah dipisahkan.</p></article>
-            <article><h4>Tabungan</h4><p>Semua setoran tabungan dicatat dalam Rupiah. Target tabungan bisa diubah pada panel input. Progress bar akan menghitung persentase saldo terhadap target yang aktif.</p></article>
-            <article><h4>Rekap Bulanan</h4><p>Rekap bulanan mengelompokkan profit/loss berdasarkan tanggal transaksi. Cashflow dan tabungan tetap ditampilkan dalam Rupiah agar tidak tercampur dengan satuan USC.</p></article>
-            <article><h4>Data di Browser</h4><p>Data disimpan di localStorage browser perangkat yang digunakan. Jika browser dihapus, mode private digunakan, atau storage dibersihkan, data lokal dapat ikut hilang. Gunakan fitur Export Data untuk membuat cadangan JSON secara berkala.</p></article>
-          </div></details>
-          <details><summary>Pusat Panduan: Struktur Evaluasi Trading</summary><div class="help-grid wide">
-            <article><h4>Pra-Entry</h4><ul><li>Trend timeframe utama jelas atau teridentifikasi sebagai sideways.</li><li>Market structure memiliki konteks.</li><li>Supply/demand relevan dengan struktur.</li><li>Level invalidation diketahui sebelum entry.</li><li>Risk dan ukuran posisi sesuai modal.</li></ul></article>
-            <article><h4>Konfirmasi</h4><ul><li>Perhatikan candle close, rejection, breakout, atau retest sesuai rencana.</li><li>Hindari menganggap satu candle sebagai kepastian arah.</li><li>Catat alasan entry singkat dan objektif.</li><li>Tentukan area take profit dan invalidation sebelum posisi dibuka.</li></ul></article>
-            <article><h4>Post-Trade</h4><ul><li>Catat hasil dalam USC.</li><li>Catat apakah rencana diikuti.</li><li>Bedakan kesalahan analisis dan kesalahan disiplin.</li><li>Gunakan rangkaian data, bukan satu transaksi, untuk mengevaluasi kebiasaan.</li></ul></article>
-          </div></details>
-          <details><summary>Pusat Panduan: Konversi Mata Uang dan Contoh Perhitungan</summary><div class="help-grid wide">
-            <article><h4>USC ke USD</h4><p>Dengan asumsi 100 USC = 1 USD, maka nilai USD adalah USC dibagi 100. Contoh: 1,006 USC = 10.06 USD.</p></article>
-            <article><h4>USD ke Rupiah</h4><p>Dashboard menggunakan kurs tampilan Rp16.100 per USD. Contoh: 10.06 USD × 16.100 = sekitar Rp161.966.</p></article>
-            <article><h4>USC ke Rupiah</h4><p>Karena 1 USC = 1/100 USD, maka 1 USC ≈ Rp161 pada kurs tampilan tersebut. Konversi hanya untuk perbandingan visual; catatan trading tetap disimpan dalam USC.</p></article>
-            <article><h4>Cashflow dan Tabungan</h4><p>Nominal cashflow dan tabungan disimpan dalam IDR secara langsung. Tidak ada konversi otomatis ketika mengisi nominal di dua halaman tersebut.</p></article>
-          </div></details>
-          <details><summary>Pusat Panduan: Template Jurnal</summary><div class="journal-template">Tanggal:\nInstrumen:\nTimeframe analisis:\nTimeframe entry:\nArah: BUY / SELL\nZona:\nStruktur:\nKonfirmasi candle:\nEntry:\nStop loss:\nTake profit:\nAlasan entry:\nAlasan exit:\nHasil (USC):\nPelajaran:\n
+                <!-- OPTIONAL HELP / DOCUMENTATION: intentionally kept in the main HTML so this dashboard remains a self-contained reference. -->
 
-Checklist evaluasi:\n[ ] Tidak mengejar loss\n[ ] Tidak overtrade\n[ ] Ukuran risiko sesuai rencana\n[ ] Entry berdasarkan setup, bukan emosi\n[ ] Catatan selesai di hari yang sama</div></details>
-
-          <!-- Large but useful reference blocks keep this HTML self-contained and easy to extend later. -->
-          <details><summary>Pusat Panduan: Review Mingguan</summary><div class="review-table"><table><thead><tr><th>Pertanyaan</th><th>Tujuan</th><th>Catatan</th></tr></thead><tbody>
-            <tr><td>Berapa net profit minggu ini?</td><td>Melihat hasil bersih.</td><td>Gunakan data Trading Harian.</td></tr>
-            <tr><td>Berapa hari profit?</td><td>Melihat konsistensi.</td><td>Hitung dari hasil positif.</td></tr>
-            <tr><td>Berapa hari loss?</td><td>Melihat hari negatif.</td><td>Jangan menilai satu hari secara terpisah.</td></tr>
-            <tr><td>Apakah target 5% dikejar secara paksa?</td><td>Menjaga disiplin.</td><td>Target adalah patokan evaluasi, bukan kewajiban memaksa entry.</td></tr>
-            <tr><td>Apakah ada overtrade?</td><td>Menjaga kualitas.</td><td>Catat jumlah dan alasan transaksi.</td></tr>
-            <tr><td>Apakah cashflow tercatat?</td><td>Menjaga pemisahan uang.</td><td>Periksa halaman Cashflow.</td></tr>
-            <tr><td>Apakah tabungan bertambah?</td><td>Menjaga tujuan finansial.</td><td>Periksa progress target.</td></tr>
-          </tbody></table></div></details>
-        </section>
 
       </div>
     </main>
