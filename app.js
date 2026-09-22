@@ -120,21 +120,35 @@ function resetForm(type){
   if(type==="cash"){$("cashEditIndex").value="";$("cashFormTitle").textContent="Tambah Uang Masuk / Keluar";$("cashDate").value=isoToday();$("cashType").value="Deposit";$("cashAmount").value="";$("cashNote").value=""}
   if(type==="saving"){$("savingEditIndex").value="";$("savingFormTitle").textContent="Tambah Tabungan";$("savingDate").value=isoToday();$("savingAmount").value="";$("savingNote").value=""}
 }
-function quickAdd(){
-  const choice=prompt("Ketik: trading / cashflow / tabungan");if(!choice)return;const x=choice.toLowerCase();if(x.includes("trad")){go("trading");resetForm("trading");$("tradeProfit").focus()}else if(x.includes("cash")||x.includes("uang")){go("cashflow");resetForm("cash");$("cashAmount").focus()}else if(x.includes("tab")){go("saving");resetForm("saving");$("savingAmount").focus()}else alert("Pilihan tidak dikenali. Gunakan trading, cashflow, atau tabungan.");
+let modalAction=null;
+function openModal({title="Konfirmasi",message="",kicker="Dashboard",icon="✦",confirmText="Lanjutkan",cancelText="Batal",showCancel=true,options=null,onConfirm=null}){
+  $("modalTitle").textContent=title;$("modalMessage").textContent=message;$("modalKicker").textContent=kicker;$("modalIcon").textContent=icon;$("modalConfirm").textContent=confirmText;$("modalCancel").textContent=cancelText;
+  $("modalCancel").style.display=showCancel?"":"none";$("modalActions").style.display=options?"none":"flex";
+  const box=$("modalOptions");box.innerHTML="";box.style.display=options?"grid":"none";
+  modalAction=onConfirm;
+  if(options){options.forEach(o=>{const b=document.createElement("button");b.type="button";b.className="modal-option";b.textContent=o.label;b.addEventListener("click",()=>{closeModal();o.action()});box.appendChild(b)})}
+  $("appModal").classList.add("open");$("appModal").setAttribute("aria-hidden","false");document.body.classList.add("modal-open");
+  if(!options)setTimeout(()=>$("modalConfirm").focus(),30);
 }
+function closeModal(){modalAction=null;$("appModal").classList.remove("open");$("appModal").setAttribute("aria-hidden","true");document.body.classList.remove("modal-open")}
+function notify(message,title="Berhasil",icon="✓"){openModal({title,message,kicker:"Info",icon,confirmText:"Mengerti",showCancel:false})}
+function quickAdd(){openModal({title:"Tambah Data",message:"Pilih jenis data yang ingin kamu catat.",kicker:"Input Cepat",icon:"＋",options:[
+  {label:"📈 Trading Harian · USC",action:()=>{go("trading");resetForm("trading");$("tradeProfit").focus()}},
+  {label:"↔ Uang Masuk / Keluar · IDR",action:()=>{go("cashflow");resetForm("cash");$("cashAmount").focus()}},
+  {label:"🐷 Tabungan · IDR",action:()=>{go("saving");resetForm("saving");$("savingAmount").focus()}}
+]})}
 function editTrading(i){go("trading");const x=state.trading[i];$("tradeEditIndex").value=i;$("tradeFormTitle").textContent="Edit Trading Harian";$("tradeDate").value=x.date;$("tradeProfit").value=x.profit;$("tradeNote").value=x.note||"";window.scrollTo({top:0,behavior:"smooth"})}
 function editCash(i){go("cashflow");const x=state.cash[i];$("cashEditIndex").value=i;$("cashFormTitle").textContent="Edit Uang Masuk / Keluar";$("cashDate").value=x.date;$("cashType").value=x.type;$("cashAmount").value=x.amount;$("cashNote").value=x.note||"";window.scrollTo({top:0,behavior:"smooth"})}
 function editSaving(i){go("saving");const x=state.saving[i];$("savingEditIndex").value=i;$("savingFormTitle").textContent="Edit Tabungan";$("savingDate").value=x.date;$("savingAmount").value=x.amount;$("savingNote").value=x.note||"";window.scrollTo({top:0,behavior:"smooth"})}
-function deleteTrading(i){if(confirm("Hapus data trading ini?")){state.trading.splice(i,1);save();}}
-function deleteCash(i){if(confirm("Hapus transaksi cashflow ini?")){state.cash.splice(i,1);save();}}
-function deleteSaving(i){if(confirm("Hapus data tabungan ini?")){state.saving.splice(i,1);save();}}
-function submitTrading(e){e.preventDefault();const i=$("tradeEditIndex").value===""?null:Number($("tradeEditIndex").value),date=$("tradeDate").value,p=Number($("tradeProfit").value),note=$("tradeNote").value.trim();if(!date||!Number.isFinite(p)){alert("Tanggal dan profit/loss wajib diisi.");return}const item={date,profit:p,note};if(i===null)state.trading.push(item);else state.trading[i]=item;resetForm("trading");save();flashSaved()}
-function submitCash(e){e.preventDefault();const i=$("cashEditIndex").value===""?null:Number($("cashEditIndex").value),date=$("cashDate").value,type=$("cashType").value,amt=Number($("cashAmount").value),note=$("cashNote").value.trim();if(!date||!Number.isFinite(amt)||amt<0){alert("Tanggal dan nominal IDR wajib diisi.");return}const item={date,type,amount:Math.abs(amt),note};if(i===null)state.cash.push(item);else state.cash[i]=item;resetForm("cash");save();flashSaved()}
-function submitSaving(e){e.preventDefault();const i=$("savingEditIndex").value===""?null:Number($("savingEditIndex").value),date=$("savingDate").value,amt=Number($("savingAmount").value),note=$("savingNote").value.trim();if(!date||!Number.isFinite(amt)||amt<0){alert("Tanggal dan nominal tabungan wajib diisi.");return}const item={date,amount:Math.abs(amt),note:note||"Tabungan"};if(i===null)state.saving.push(item);else state.saving[i]=item;resetForm("saving");save();flashSaved()}
-function setSavingTarget(e){e.preventDefault();const v=Number($("savingTargetInput").value);if(!Number.isFinite(v)||v<0){alert("Target tabungan harus berupa nominal IDR yang valid.");return}state.savingTarget=v;save();flashSaved()}
+function deleteTrading(i){openModal({title:"Hapus data trading?",message:"Data ini akan dihapus dari riwayat Trading Harian.",kicker:"Konfirmasi",icon:"⌫",confirmText:"Hapus",onConfirm:()=>{state.trading.splice(i,1);save();notify("Data trading berhasil dihapus.")}})}
+function deleteCash(i){openModal({title:"Hapus transaksi?",message:"Transaksi uang masuk/keluar ini akan dihapus.",kicker:"Konfirmasi",icon:"⌫",confirmText:"Hapus",onConfirm:()=>{state.cash.splice(i,1);save();notify("Transaksi berhasil dihapus.")}})}
+function deleteSaving(i){openModal({title:"Hapus tabungan?",message:"Catatan tabungan ini akan dihapus.",kicker:"Konfirmasi",icon:"⌫",confirmText:"Hapus",onConfirm:()=>{state.saving.splice(i,1);save();notify("Data tabungan berhasil dihapus.")}})}
+function submitTrading(e){e.preventDefault();const i=$("tradeEditIndex").value===""?null:Number($("tradeEditIndex").value),date=$("tradeDate").value,p=Number($("tradeProfit").value),note=$("tradeNote").value.trim();if(!date||!Number.isFinite(p)){notify("Tanggal dan profit/loss wajib diisi.","Data belum lengkap","!");return}const item={date,profit:p,note};if(i===null)state.trading.push(item);else state.trading[i]=item;resetForm("trading");save();flashSaved()}
+function submitCash(e){e.preventDefault();const i=$("cashEditIndex").value===""?null:Number($("cashEditIndex").value),date=$("cashDate").value,type=$("cashType").value,amt=Number($("cashAmount").value),note=$("cashNote").value.trim();if(!date||!Number.isFinite(amt)||amt<0){notify("Tanggal dan nominal IDR wajib diisi.","Data belum lengkap","!");return}const item={date,type,amount:Math.abs(amt),note};if(i===null)state.cash.push(item);else state.cash[i]=item;resetForm("cash");save();flashSaved()}
+function submitSaving(e){e.preventDefault();const i=$("savingEditIndex").value===""?null:Number($("savingEditIndex").value),date=$("savingDate").value,amt=Number($("savingAmount").value),note=$("savingNote").value.trim();if(!date||!Number.isFinite(amt)||amt<0){notify("Tanggal dan nominal tabungan wajib diisi.","Data belum lengkap","!");return}const item={date,amount:Math.abs(amt),note:note||"Tabungan"};if(i===null)state.saving.push(item);else state.saving[i]=item;resetForm("saving");save();flashSaved()}
+function setSavingTarget(e){e.preventDefault();const v=Number($("savingTargetInput").value);if(!Number.isFinite(v)||v<0){notify("Target tabungan harus berupa nominal IDR yang valid.","Target belum valid","!");return}state.savingTarget=v;save();flashSaved()}
 function exportData(){const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="trading-savings-backup.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
-function resetDemo(){if(!confirm("Reset semua data di dashboard ini dan kembali ke data demo?"))return;localStorage.removeItem(KEY);state=defaultState();localStorage.setItem(KEY,JSON.stringify(state));renderAll();resetForm("trading");resetForm("cash");resetForm("saving")}
+function resetDemo(){openModal({title:"Reset dashboard?",message:"Semua data saat ini akan diganti dengan data demo. Tindakan ini tidak bisa dibatalkan.",kicker:"Peringatan",icon:"↻",confirmText:"Reset",onConfirm:()=>{localStorage.removeItem(KEY);state=defaultState();localStorage.setItem(KEY,JSON.stringify(state));renderAll();resetForm("trading");resetForm("cash");resetForm("saving");notify("Dashboard kembali ke data demo.")}})}
 function renderAll(){renderHeader();renderDashboard();renderTradingPage();renderCashPage();renderSavingPage();renderMonthlyPage();flashSaved()}
 
 document.querySelectorAll(".nav-item").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
@@ -144,6 +158,9 @@ $("tradeForm").addEventListener("submit",submitTrading);$("cashForm").addEventLi
 $("tradeCancel").addEventListener("click",()=>resetForm("trading"));$("cashCancel").addEventListener("click",()=>resetForm("cash"));$("savingCancel").addEventListener("click",()=>resetForm("saving"));
 $("tradeNewTop").addEventListener("click",()=>{resetForm("trading");$("tradeDate").focus()});$("cashNewTop").addEventListener("click",()=>{resetForm("cash");$("cashDate").focus()});$("savingNewTop").addEventListener("click",()=>{resetForm("saving");$("savingDate").focus()});
 ["tradeSearch","cashSearch","savingSearch"].forEach(id=>$(id).addEventListener("input",renderAll));
+$("modalConfirm").addEventListener("click",()=>{const fn=modalAction;if(fn){closeModal();fn()}});
+$("modalCancel").addEventListener("click",closeModal);$("modalX").addEventListener("click",closeModal);document.querySelector("[data-modal-close]").addEventListener("click",closeModal);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("appModal").classList.contains("open"))closeModal()});
 
 resetForm("trading");resetForm("cash");resetForm("saving");renderAll();
 window.go=go;window.editTrading=editTrading;window.editCash=editCash;window.editSaving=editSaving;window.deleteTrading=deleteTrading;window.deleteCash=deleteCash;window.deleteSaving=deleteSaving;

@@ -3388,5 +3388,24 @@ The visible application does not depend on these notes. -->
 Use this area for future feature additions such as extra metrics, export formats, print layouts,
 weekly summaries, monthly comparisons, journal fields, reminder cards, and additional charts.
 The visible application does not depend on these notes. -->
+
+<div id="appModal" class="app-modal" aria-hidden="true">
+  <div class="modal-backdrop" data-modal-close></div>
+  <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-x" id="modalX" type="button" aria-label="Tutup">×</button>
+    <div class="modal-icon" id="modalIcon">✦</div>
+    <div class="modal-copy">
+      <div class="modal-kicker" id="modalKicker">Dashboard</div>
+      <h3 id="modalTitle">Konfirmasi</h3>
+      <p id="modalMessage">Apakah kamu yakin?</p>
+    </div>
+    <div class="modal-options" id="modalOptions"></div>
+    <div class="modal-actions" id="modalActions">
+      <button class="btn secondary" id="modalCancel" type="button">Batal</button>
+      <button class="btn" id="modalConfirm" type="button">Lanjutkan</button>
+    </div>
+  </section>
+</div>
+
 </body>
 </html>
